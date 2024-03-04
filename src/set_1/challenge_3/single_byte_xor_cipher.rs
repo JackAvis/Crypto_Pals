@@ -23,7 +23,7 @@ pub fn break_single_byte_xor_cipher(cipher: &String) -> String {
     return decoded_cipher;
 }
 
-fn calc_english_score(message: &String) -> f32{
+pub fn calc_english_score(message: &String) -> f32{
     let mut score: f32 = 0.0;
     for message_byte in message.bytes(){
         for (freq_byte, freq_score) in CHAR_FREQUENCIES.iter(){
