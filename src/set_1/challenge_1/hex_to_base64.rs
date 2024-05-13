@@ -24,3 +24,7 @@ pub fn hex_to_base64(input:&Vec<u8>) -> String {
     return to_base64(&from_hex(&input));
 }
 
+pub fn str_to_hex(input: &String) -> Vec<u8> {
+    return from_hex(&input.clone().into_bytes());
+}
+

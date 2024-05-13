@@ -1,33 +1,32 @@
 use std::collections::HashSet;
-use crate::set_1::challenge_2::fixed_xor::{fixed_xor};
+use crate::set_1::challenge_2::fixed_xor::fixed_xor;
 use crate::set_1::challenge_1::hex_to_base64::hex_to_base64;
 
 
-pub fn break_single_byte_xor_cipher(cipher: &String) -> String {
-    let cipher_bytes = hex::decode(cipher).unwrap();
+pub fn break_single_byte_xor_cipher(cipher: &Vec<u8>) -> Vec<u8> {
+    let cipher_bytes = cipher; 
     let mut max_score: f32 = 0.0;
-    let mut decoded_cipher = String::new();
+    let mut decoded_cipher = Vec::new();
     for possible_byte in 0u8..=255{
         let mut xor_bytes = Vec::new();
         for _ in 0..cipher.len(){
             xor_bytes.push(possible_byte);
         }
         let xor_result = fixed_xor(&cipher_bytes, &xor_bytes);
-        let msg = String::from_utf8_lossy(&xor_result).to_string();
-        let score = calc_english_score(&msg);
+        let score = calc_english_score(&xor_result);
         if (score > max_score){
             max_score = score;
-            decoded_cipher = msg;
+            decoded_cipher = xor_result;
         }
     }
     return decoded_cipher;
 }
 
-pub fn calc_english_score(message: &String) -> f32{
+pub fn calc_english_score(message: &Vec<u8>) -> f32{
     let mut score: f32 = 0.0;
-    for message_byte in message.bytes(){
+    for message_byte in message{
         for (freq_byte, freq_score) in CHAR_FREQUENCIES.iter(){
-            if (*freq_byte == message_byte){
+            if (*freq_byte == *message_byte){
                 score += freq_score;
             }
         }

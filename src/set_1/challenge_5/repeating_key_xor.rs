@@ -1,15 +1,13 @@
 
 
-pub fn repeating_key_xor(input: &String, key: &String) -> String {
-    let input_bytes = input.as_bytes();
-    let key_bytes = key.as_bytes();
+pub fn repeating_key_xor(input: &Vec<u8>, key: &Vec<u8>) -> Vec<u8> {
     let mut key_index = 0;
     let mut encrypted_input = Vec::new();
     let mut i = 0;
-    for byte in input_bytes.iter(){
-        key_index = i % key_bytes.len();
+    for byte in input.iter(){
+        key_index = i % key.len();
         i += 1;
-        encrypted_input.push(byte ^ key_bytes[key_index]);
+        encrypted_input.push(byte ^ key[key_index]);
     }
-    return hex::encode(&encrypted_input);
+    return encrypted_input;
 }
