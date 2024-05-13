@@ -1,5 +1,3 @@
-
-
 pub fn repeating_key_xor(input: &Vec<u8>, key: &Vec<u8>) -> Vec<u8> {
     let mut key_index = 0;
     let mut encrypted_input = Vec::new();
