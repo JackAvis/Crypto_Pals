@@ -1,5 +1,5 @@
 use std::collections::HashSet;
-use crate::set_1::challenge_2::fixed_xor::{fixed_xor, fixed_xor_bytes};
+use crate::set_1::challenge_2::fixed_xor::{fixed_xor};
 use crate::set_1::challenge_1::hex_to_base64::hex_to_base64;
 
 
@@ -12,7 +12,7 @@ pub fn break_single_byte_xor_cipher(cipher: &String) -> String {
         for _ in 0..cipher.len(){
             xor_bytes.push(possible_byte);
         }
-        let xor_result = fixed_xor_bytes(&cipher_bytes, &xor_bytes);
+        let xor_result = fixed_xor(&cipher_bytes, &xor_bytes);
         let msg = String::from_utf8_lossy(&xor_result).to_string();
         let score = calc_english_score(&msg);
         if (score > max_score){
